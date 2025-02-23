@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Library Management System</h1>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Add Book</h2>
+                <form action="/add_book" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" placeholder="Book Title" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="author" placeholder="Author" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="stock" placeholder="Stock Quantity" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Add Member</h2>
+                <form action="/add_member" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Member Name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Member</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Issue Book</h2>
+                <form action="/issue_book" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" placeholder="Book Title" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="member_name" placeholder="Member Name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Issue Book</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Return Book</h2>
+                <form action="/return_book" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" placeholder="Book Title" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="member_name" placeholder="Member Name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Return Book</button>
+                </form>
+            </div>
+        </div>
+
+        <h2>Search Book</h2>
+        <form action="/search_book" method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control" name="search_term" placeholder="Search by Title or Author" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <h2>All Books</h2>
+        <ul class="list-group">
+            {% for book in books %}
+                <li class="list-group-item">{{ book.title }} by {{ book.author }} (Stock: {{ book.stock }})</li>
+            {% endfor %}
+        </ul>
+
+        <h2>All Members</h2>
+        <ul class="list-group">
+            {% for member in members %}
+            <li class="list-group-item">{{ member.name }} (Debt: Rs.{{ member.outstanding_debt }})</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
